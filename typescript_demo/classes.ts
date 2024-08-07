@@ -1,7 +1,16 @@
-class Employee {
+import { Login, User } from './interface';
+
+interface Address {
+    street: string;
+    city: string;
+    state: string;
+    pin: string;
+}
+
+class Employee implements Login {
     #id: number;
     protected name: string;
-    address: string;
+    address: Address;
 
     get empId() : number {
         return this.#id;
@@ -15,7 +24,7 @@ class Employee {
         return 50;
     }
 
-    constructor(id: number, name: string, address: string) {
+    constructor(id: number, name: string, address: Address) {
         this.#id = id;
         this.name = name;
         this.address = address;
@@ -24,10 +33,18 @@ class Employee {
     getNameWithAddress() : string {
         return `${this.name} stays at ${this.address}`;
     }
+
+    login(): User {
+        return {
+            name: "John",
+            id: 1,
+            email: ""
+        };
+    }
 }
 
 class Manager extends Employee {
-    constructor(id: number, name: string, address: string) {
+    constructor(id: number, name: string, address: Address) {
         super(id, name, address);
     }
 
@@ -36,8 +53,12 @@ class Manager extends Employee {
     }
 }
 
-let john = new Employee(1, "John", "Highway 71");
-let michael = new Manager(2, "Michael", "New York")
+let michael = new Manager(2, "Michael", {
+    street: "ABC",
+    "city": "Manhaten",
+    "state": "Newyork",
+    "pin": "11322"
+});
 let address = michael.getNameWithAddress();
 console.log(address);
 Employee.getEmployeeCount();
