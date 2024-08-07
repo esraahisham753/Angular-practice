@@ -65,3 +65,6 @@ Employee.getEmployeeCount();
 michael.empId = 100;
 console.log(michael.empId);
 
+//@Component({})
+//class Component {
+//}
