@@ -5,21 +5,21 @@ import { Rooms } from './rooms';
 @Component({
   selector: 'hinv-rooms',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './rooms.component.html',
-  styleUrl: './rooms.component.scss'
+  styleUrl: './rooms.component.scss',
 })
 export class RoomsComponent {
   hotelname = 'Hilton Hotel';
   numberOfRooms = 10;
   hideRooms = false;
-  rooms : Rooms = {
+  rooms: Rooms = {
     totalRooms: 20,
     availableRooms: 10,
     bookedRooms: 5
   };
 
   toggle() {
-    this.hideRooms = ! this.hideRooms;
+    this.hideRooms = !this.hideRooms;
   }
 }
