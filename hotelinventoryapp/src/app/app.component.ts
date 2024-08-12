@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { RoomsComponent } from "./rooms/rooms.component";
 
 @Component({
   selector: 'hinv-root',
   standalone: true,
-  imports: [RouterOutlet, RoomsComponent],
+  imports: [RouterOutlet, RoomsComponent, CommonModule],
   templateUrl: './app.component.html',
   //template: `
   //<h1>Hello, World from inline template</h1>
@@ -16,4 +17,5 @@ import { RoomsComponent } from "./rooms/rooms.component";
 })
 export class AppComponent {
   title = 'hotelinventoryapp';
+  role = 'Users';
 }
