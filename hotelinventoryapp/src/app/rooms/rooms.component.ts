@@ -26,7 +26,8 @@ export class RoomsComponent {
     price: 500,
     photo: 'https://unsplash.com/photos/vacant-white-bed-near-the-window-B4rEJ09-Puo',
     checkIn: new Date('12-Aug-2024'),
-    checkOut: new Date('13-Aug-2024')
+    checkOut: new Date('13-Aug-2024'),
+    rating: 4.5
   },
   {
     roomNumber: 2,
@@ -35,7 +36,8 @@ export class RoomsComponent {
     price: 1000,
     photo: 'https://unsplash.com/photos/vacant-white-bed-near-the-window-B4rEJ09-Puo',
     checkIn: new Date('14-Aug-2024'),
-    checkOut: new Date('15-Aug-2024')
+    checkOut: new Date('15-Aug-2024'),
+    rating: 3.46546
   },
   {
     roomNumber: 3,
@@ -44,7 +46,8 @@ export class RoomsComponent {
     price: 1500,
     photo: 'https://unsplash.com/photos/vacant-white-bed-near-the-window-B4rEJ09-Puo',
     checkIn: new Date('16-Aug-2024'),
-    checkOut: new Date('17-Aug-2024')
+    checkOut: new Date('17-Aug-2024'),
+    rating: 2.6
   }
 ];
 
