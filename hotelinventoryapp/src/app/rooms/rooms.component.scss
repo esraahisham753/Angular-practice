@@ -1,10 +1,10 @@
 .even {
-  background-color: steelblue !important;
+  --bs-table-bg: steelblue;
   color: white;
 }
 
 .odd {
-  background-color: tomato;
+  --bs-table-bg: tomato;
   color: white;
 }
 

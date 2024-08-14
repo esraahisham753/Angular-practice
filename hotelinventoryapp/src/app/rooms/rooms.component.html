@@ -9,21 +9,23 @@
 <button (click)="toggle()">Toggle</button>
 
 <!-- {{rooms.availableRooms ?? "no-rooms"}} -->
-{{ roomList | json }}
+<!--{ roomList | json }}-->
 
 <div *ngIf="rooms.availableRooms > 0">
   Rooms List:
   <table class="table">
-    <tr>
-      <th>Index</th>
-      <th>Even / Odd</th>
-      <th>Room Number</th>
-      <th>Room Type</th>
-      <th>Room Price</th>
-      <th>Room Amenities</th>
-      <th>CheckIn Time</th>
-      <th>Rating</th>
-    </tr>
+    <thead>
+      <tr>
+        <th>Index</th>
+        <th>Even / Odd</th>
+        <th>Room Number</th>
+        <th>Room Type</th>
+        <th>Room Price</th>
+        <th>Room Amenities</th>
+        <th>CheckIn Time</th>
+        <th>Rating</th>
+      </tr>
+    </thead>
     <tbody>
       <tr
         [ngClass]="e ? 'even' : 'odd'"
