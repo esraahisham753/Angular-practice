@@ -16,7 +16,7 @@ Rooms List:
       <tr
         [ngClass]="e ? 'even' : 'odd'"
         *ngFor="
-          let room of roomList | slice : 0 : 3;
+          let room of rooms | slice : 0 : 3;
           let i = index;
           let e = even;
           let o = odd
