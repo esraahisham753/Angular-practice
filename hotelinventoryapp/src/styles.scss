@@ -1,2 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 /*@import 'bootstrap/dist/css/bootstrap.min.css';*/
+
+.even {
+  --bs-table-bg: steelblue;
+  --bs-table-color: white;
+}
+
+.odd {
+  --bs-table-bg: tomato;
+  --bs-table-color: white;
+}
+
+h1 {
+  color: steelblue;
+}
+

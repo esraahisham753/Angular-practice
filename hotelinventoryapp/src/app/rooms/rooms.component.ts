@@ -19,6 +19,7 @@ export class RoomsComponent implements OnInit {
     availableRooms: 10,
     bookedRooms: 5
   };
+  selectedRoom! : RoomList;
 
   roomList : RoomList[] = [];
 
@@ -58,5 +59,10 @@ export class RoomsComponent implements OnInit {
 
   toggle() {
     this.hideRooms = !this.hideRooms;
+  }
+
+  selectRoom(room : RoomList) : void {
+    console.log(room);
+    this.selectedRoom = room;
   }
 }
