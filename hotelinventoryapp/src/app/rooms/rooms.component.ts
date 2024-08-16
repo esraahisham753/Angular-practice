@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, DoCheck, ViewChild, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RoomList, Rooms } from './rooms';
 import { RoomsListComponent } from "./rooms-list/rooms-list.component";
@@ -11,7 +11,7 @@ import { HeaderComponent } from "../header/header.component"
   templateUrl: './rooms.component.html',
   styleUrl: './rooms.component.scss',
 })
-export class RoomsComponent implements OnInit, DoCheck, AfterViewInit {
+export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterViewChecked {
   hotelname = 'Hilton Hotel';
   numberOfRooms = 10;
   hideRooms = false;
@@ -25,10 +25,10 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit {
 
   roomList : RoomList[] = [];
 
-  @ViewChild('HeaderComponent', { static: true }) headerComponent! : HeaderComponent;
+  @ViewChild(HeaderComponent) headerComponent! : HeaderComponent;
 
   ngOnInit(): void {
-    console.log(this.headerComponent);
+    //console.log(this.headerComponent);
 
     this.roomList = [{
       roomNumber: 1,
@@ -66,6 +66,15 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit {
   ngDoCheck(): void {
     console.log('Do Check is called');
 
+  }
+
+  ngAfterViewInit(): void {
+    this.headerComponent.title = 'Rooms view';
+
+  }
+
+  ngAfterViewChecked(): void {
+    
   }
 
   toggle() {

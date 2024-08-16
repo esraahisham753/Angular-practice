@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ViewContainerRef, OnInit, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { RoomsComponent } from "./rooms/rooms.component";
@@ -15,7 +15,20 @@ import { RoomsComponent } from "./rooms/rooms.component";
   styleUrl: './app.component.scss'
   //styles: [`h1 {color: red}`]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'hotelinventoryapp';
   role = 'Users';
+
+  /*@ViewChild('user', {read : ViewContainerRef}) vcRef! : ViewContainerRef;
+
+  ngAfterViewInit(): void {
+    const componentRef = this.vcRef.createComponent(RoomsComponent);
+    componentRef.instance.numberOfRooms = 50;
+  }*/
+
+  @ViewChild('name', {static: true}) name! : ElementRef;
+
+  ngOnInit(): void {
+    this.name.nativeElement.innerText = "Hilton Hotel";
+  }
 }
