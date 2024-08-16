@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RoomList, Rooms } from './rooms';
 import { RoomsListComponent } from "./rooms-list/rooms-list.component";
+import { HeaderComponent } from "../header/header.component"
 
 @Component({
   selector: 'hinv-rooms',
   standalone: true,
-  imports: [CommonModule, RoomsListComponent],
+  imports: [CommonModule, RoomsListComponent, HeaderComponent],
   templateUrl: './rooms.component.html',
   styleUrl: './rooms.component.scss',
 })
-export class RoomsComponent implements OnInit {
+export class RoomsComponent implements OnInit, DoCheck, AfterViewInit {
   hotelname = 'Hilton Hotel';
   numberOfRooms = 10;
   hideRooms = false;
@@ -20,10 +21,15 @@ export class RoomsComponent implements OnInit {
     bookedRooms: 5
   };
   selectedRoom! : RoomList;
+  title : String = 'Room List';
 
   roomList : RoomList[] = [];
 
+  @ViewChild('HeaderComponent', { static: true }) headerComponent! : HeaderComponent;
+
   ngOnInit(): void {
+    console.log(this.headerComponent);
+
     this.roomList = [{
       roomNumber: 1,
       roomType: "Deluxe Room",
@@ -57,12 +63,33 @@ export class RoomsComponent implements OnInit {
   ];
   }
 
+  ngDoCheck(): void {
+    console.log('Do Check is called');
+
+  }
+
   toggle() {
     this.hideRooms = !this.hideRooms;
+    this.title = 'Rooms';
   }
 
   selectRoom(room : RoomList) : void {
     console.log(room);
     this.selectedRoom = room;
+  }
+
+  addRoom() : void {
+    const newRoom : RoomList = {
+      roomNumber: 4,
+      roomType: 'Deluxe',
+      amenities: 'TV, Air conditioner, Free Wi-Fi, Bathroom, Kitchen',
+      rating: 4.5,
+      photo: 'https://unsplash.com/photos/vacant-white-bed-near-the-window-B4rEJ09-Puo',
+      price: 900,
+      checkIn: new Date('16-Aug-2024'),
+      checkOut: new Date('17-Aug-2024')
+    };
+
+    this.roomList = [...this.roomList, newRoom];
   }
 }
