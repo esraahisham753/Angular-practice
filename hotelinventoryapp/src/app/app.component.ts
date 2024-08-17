@@ -2,11 +2,12 @@ import { Component, ViewChild, ViewContainerRef, OnInit, ElementRef } from '@ang
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { RoomsComponent } from "./rooms/rooms.component";
+import { ContainerComponent } from "./container/container.component";
 
 @Component({
   selector: 'hinv-root',
   standalone: true,
-  imports: [RouterOutlet, RoomsComponent, CommonModule],
+  imports: [RouterOutlet, RoomsComponent, CommonModule, ContainerComponent],
   templateUrl: './app.component.html',
   //template: `
   //<h1>Hello, World from inline template</h1>
