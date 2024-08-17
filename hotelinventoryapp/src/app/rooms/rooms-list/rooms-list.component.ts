@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, ChangeDetectionStrategy, OnChanges, SimpleChanges} from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, ChangeDetectionStrategy, OnChanges, SimpleChanges, OnDestroy} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RoomList } from '../rooms';
 
@@ -10,7 +10,7 @@ import { RoomList } from '../rooms';
   styleUrl: './rooms-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RoomsListComponent implements OnInit, OnChanges {
+export class RoomsListComponent implements OnInit, OnChanges, OnDestroy {
   @Input() rooms : RoomList[] = [];
   @Input() title : String = '';
   @Output() selectedRoom = new EventEmitter<RoomList>();
@@ -29,5 +29,10 @@ export class RoomsListComponent implements OnInit, OnChanges {
     if(changes['title']) {
       this.title = changes['title'].currentValue.toUpperCase();
     }
+  }
+
+  ngOnDestroy(): void {
+    console.log('OnDestroy is called');
+
   }
 }
