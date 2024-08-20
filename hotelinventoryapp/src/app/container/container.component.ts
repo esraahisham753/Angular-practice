@@ -14,7 +14,7 @@ import { RoomsService } from '../rooms/services/rooms.service';
 export class ContainerComponent implements AfterContentInit {
   @ContentChild(EmployeeComponent) employee ! : EmployeeComponent;
 
-  constructor(@Host() private roomService : RoomsService) {}
+  constructor() {}
 
   ngAfterContentInit(): void {
     console.log(this.employee);
