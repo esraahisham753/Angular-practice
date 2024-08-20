@@ -1,5 +1,6 @@
 import { AfterContentInit, Component, ContentChild } from '@angular/core';
 import { EmployeeComponent } from '../employee/employee.component';
+import { RoomsService } from '../rooms/services/rooms.service';
 
 @Component({
   selector: 'hinv-container',
@@ -10,6 +11,8 @@ import { EmployeeComponent } from '../employee/employee.component';
 })
 export class ContainerComponent implements AfterContentInit {
   @ContentChild(EmployeeComponent) employee ! : EmployeeComponent;
+
+  constructor(private roomService : RoomsService) {}
 
   ngAfterContentInit(): void {
     console.log(this.employee);
