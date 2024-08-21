@@ -45,7 +45,9 @@ export class RoomsComponent
   @ViewChildren(HeaderComponent) headerComponents!: QueryList<HeaderComponent>;
 
   ngOnInit(): void {
-    this.roomList = this.roomService.getRooms();
+    this.roomService.getRooms().subscribe(rooms => {
+      this.roomList = rooms;
+    })
   }
 
   ngDoCheck(): void {
@@ -71,7 +73,7 @@ export class RoomsComponent
 
   addRoom(): void {
     const newRoom: RoomList = {
-      roomNumber: 4,
+      roomNumber: '4',
       roomType: 'Deluxe',
       amenities: 'TV, Air conditioner, Free Wi-Fi, Bathroom, Kitchen',
       rating: 4.5,
