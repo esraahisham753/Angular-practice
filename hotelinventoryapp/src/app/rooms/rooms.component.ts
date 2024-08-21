@@ -14,6 +14,7 @@ import { RoomList, Rooms } from './rooms';
 import { RoomsListComponent } from './rooms-list/rooms-list.component';
 import { HeaderComponent } from '../header/header.component';
 import { RoomsService } from './services/rooms.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'hinv-rooms',
@@ -38,16 +39,29 @@ export class RoomsComponent
 
   roomList: RoomList[] = [];
 
-  constructor(@SkipSelf() private roomService : RoomsService) {}
+  stream = new Observable((observer) => {
+    observer.next('user1');
+    observer.next('user2');
+    observer.next('user3');
+    observer.complete();
+  });
+
+  constructor(@SkipSelf() private roomService: RoomsService) {}
 
   @ViewChild(HeaderComponent) headerComponent!: HeaderComponent;
 
   @ViewChildren(HeaderComponent) headerComponents!: QueryList<HeaderComponent>;
 
   ngOnInit(): void {
-    this.roomService.getRooms().subscribe(rooms => {
+    this.stream.subscribe({
+      next: (value) => console.log(value),
+      complete: () => console.log('complete'),
+      error: (err) => console.log(err)
+    });
+    this.stream.subscribe((data) => console.log(data));
+    this.roomService.getRooms().subscribe((rooms) => {
       this.roomList = rooms;
-    })
+    });
   }
 
   ngDoCheck(): void {
@@ -80,8 +94,8 @@ export class RoomsComponent
       photo:
         'https://unsplash.com/photos/vacant-white-bed-near-the-window-B4rEJ09-Puo',
       price: 900,
-      checkIn: new Date('16-Aug-2024'),
-      checkOut: new Date('17-Aug-2024'),
+      checkinTime: new Date('16-Aug-2024'),
+      checkoutTime: new Date('17-Aug-2024'),
     };
 
     this.roomList = [...this.roomList, newRoom];

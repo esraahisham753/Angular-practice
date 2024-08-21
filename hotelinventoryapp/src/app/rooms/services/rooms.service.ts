@@ -11,10 +11,10 @@ export class RoomsService {
   roomList: RoomList[] = [];
 
   constructor(
-    @Inject(APP_SERVICE_CONFIG) private appConfig: AppConfig,
+    //@Inject(APP_SERVICE_CONFIG) private appConfig: AppConfig,
     private http: HttpClient
   ) {
-    console.log(appConfig.apiEndpoint);
+    //console.log(appConfig.apiEndpoint);
 
     console.log('Rooms Service is called!');
   }
