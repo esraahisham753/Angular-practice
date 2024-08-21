@@ -28,7 +28,7 @@ export class RoomsComponent
 {
   hotelname = 'Hilton Hotel';
   numberOfRooms = 10;
-  hideRooms = false;
+  hideRooms = true;
   rooms: Rooms = {
     totalRooms: 20,
     availableRooms: 10,
@@ -39,7 +39,7 @@ export class RoomsComponent
 
   roomList: RoomList[] = [];
 
-  stream = new Observable((observer) => {
+  stream = new Observable<string>((observer) => {
     observer.next('user1');
     observer.next('user2');
     observer.next('user3');
@@ -98,6 +98,38 @@ export class RoomsComponent
       checkoutTime: new Date('17-Aug-2024'),
     };
 
-    this.roomList = [...this.roomList, newRoom];
+    this.roomService.addRoom(newRoom).subscribe((data) => {
+      this.roomList = data;
+    })
+  }
+
+  editRoom() {
+    const newRoom: RoomList = {
+      roomNumber: '3',
+      roomType: 'Deluxe',
+      amenities: 'TV, Air conditioner, Free Wi-Fi, Bathroom, Kitchen',
+      rating: 4.5,
+      photo:
+        'https://unsplash.com/photos/vacant-white-bed-near-the-window-B4rEJ09-Puo',
+      price: 900,
+      checkinTime: new Date('16-Aug-2024'),
+      checkoutTime: new Date('17-Aug-2024'),
+    };
+
+    this.roomService.editRoom(newRoom).subscribe((data) => {
+      this.roomList = data;
+    })
+  }
+
+  deleteRoom() {
+    this.roomService.deleteRoom('3').subscribe((data) => {
+      this.roomList = data;
+    })
+  }
+
+  getPhotos() {
+    this.roomService.getPhotos().subscribe((data) => {
+      console.log(data);
+    })
   }
 }
