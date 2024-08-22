@@ -3,12 +3,15 @@ import { RoomList } from '../rooms';
 import { APP_SERVICE_CONFIG } from '../../AppConfig/appconfig.service';
 import { AppConfig } from '../../AppConfig/AppConfig.interface';
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { Observable, shareReplay } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class RoomsService {
   roomList: RoomList[] = [];
+  getRooms$ : Observable<RoomList[]>;
 
   constructor(
     //@Inject(APP_SERVICE_CONFIG) private appConfig: AppConfig,
@@ -16,13 +19,21 @@ export class RoomsService {
   ) {
     //console.log(appConfig.apiEndpoint);
 
-    console.log('Rooms Service is called!');
+    this.getRooms$ = this.http.get<RoomList[]>('https://special-xylophone-pjxqvqv45p5h97p6-3000.app.github.dev/api/room').pipe(
+      shareReplay(1)
+    );
   }
+
+
+
 
   getRooms() {
     return this.http.get<RoomList[]>(
       'https://special-xylophone-pjxqvqv45p5h97p6-3000.app.github.dev/api/rooms'
     );
+
+
+
   }
 
   addRoom(room: RoomList) {

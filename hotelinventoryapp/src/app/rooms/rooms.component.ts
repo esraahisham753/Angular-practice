@@ -8,13 +8,14 @@ import {
   ViewChildren,
   QueryList,
   SkipSelf,
+  OnDestroy,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RoomList, Rooms } from './rooms';
 import { RoomsListComponent } from './rooms-list/rooms-list.component';
 import { HeaderComponent } from '../header/header.component';
 import { RoomsService } from './services/rooms.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { HttpEventType } from '@angular/common/http';
 
 @Component({
@@ -25,7 +26,7 @@ import { HttpEventType } from '@angular/common/http';
   styleUrl: './rooms.component.scss',
 })
 export class RoomsComponent
-  implements OnInit, DoCheck, AfterViewInit, AfterViewChecked
+  implements OnInit, DoCheck, AfterViewInit, AfterViewChecked, OnDestroy
 {
   hotelname = 'Hilton Hotel';
   numberOfRooms = 10;
@@ -40,6 +41,8 @@ export class RoomsComponent
 
   roomList: RoomList[] = [];
 
+  subscription !: Subscription;
+
   stream = new Observable<string>((observer) => {
     observer.next('user1');
     observer.next('user2');
@@ -48,6 +51,7 @@ export class RoomsComponent
   });
 
   totalBytes : number = 0;
+  rooms$ !: Observable<RoomList[]>;
 
   constructor(@SkipSelf() private roomService: RoomsService) {}
 
@@ -62,9 +66,11 @@ export class RoomsComponent
       error: (err) => console.log(err)
     });
     this.stream.subscribe((data) => console.log(data));
-    this.roomService.getRooms().subscribe((rooms) => {
+    /*this.subscription = this.roomService.getRooms$.subscribe((rooms) => {
       this.roomList = rooms;
-    });
+    });*/
+    this.rooms$ = this.roomService.getRooms$;
+    this.getPhotos();
   }
 
   ngDoCheck(): void {
@@ -77,6 +83,12 @@ export class RoomsComponent
   }
 
   ngAfterViewChecked(): void {}
+
+  ngOnDestroy(): void {
+    if(this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
 
   toggle() {
     this.hideRooms = !this.hideRooms;
@@ -141,8 +153,12 @@ export class RoomsComponent
           break;
         case HttpEventType.DownloadProgress:
           this.totalBytes += event.loaded;
+          console.log(this.totalBytes);
+
           break;
-        
+        case HttpEventType.Response:
+          console.log(event.body);
+          break;
         default:
           console.log('Some thing went wront');
 

@@ -1,6 +1,5 @@
 <hinv-header></hinv-header>
-<hinv-header></hinv-header>
-<hinv-header></hinv-header>
+<!-- {{rooms$ | async | json}} -->
 <div [hidden]="hideRooms">
   Number of rooms
   <div
@@ -24,10 +23,12 @@
   <button (click)="addRoom()">Add Room</button>
 </div>
 
-<div *ngIf="hideRooms">
+<div *ngIf="rooms$ | async as rooms">
   <hinv-rooms-list
-    [rooms]="roomList"
+    [rooms]="rooms"
     (selectedRoom)="selectRoom($event)"
     [title]="title"
   ></hinv-rooms-list>
 </div>
+
+<h1>{{totalBytes}} Loaded</h1>
