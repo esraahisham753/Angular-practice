@@ -15,7 +15,7 @@ import { RoomList, Rooms } from './rooms';
 import { RoomsListComponent } from './rooms-list/rooms-list.component';
 import { HeaderComponent } from '../header/header.component';
 import { RoomsService } from './services/rooms.service';
-import { Observable, Subscription } from 'rxjs';
+import { catchError, Observable, of, Subject, Subscription, map } from 'rxjs';
 import { HttpEventType } from '@angular/common/http';
 
 @Component({
@@ -52,6 +52,10 @@ export class RoomsComponent
 
   totalBytes : number = 0;
   rooms$ !: Observable<RoomList[]>;
+  error$ = new Subject<string>();
+  getError$ = this.error$.asObservable();
+
+  roomsCount$ ! : Observable<number>;
 
   constructor(@SkipSelf() private roomService: RoomsService) {}
 
@@ -69,7 +73,16 @@ export class RoomsComponent
     /*this.subscription = this.roomService.getRooms$.subscribe((rooms) => {
       this.roomList = rooms;
     });*/
-    this.rooms$ = this.roomService.getRooms$;
+    this.rooms$ = this.roomService.getRooms$.pipe(
+      catchError(err => {
+        //console.log(err);
+        this.error$.next(err.message);
+        return of([]);
+      })
+    );
+    this.roomsCount$ = this.roomService.getRooms$.pipe(
+      map(rooms => rooms.length)
+    );
     this.getPhotos();
   }
 

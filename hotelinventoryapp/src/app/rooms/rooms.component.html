@@ -23,6 +23,10 @@
   <button (click)="addRoom()">Add Room</button>
 </div>
 
+<!-- <h1>{{getError$ | async}}</h1> -->
+
+<h1>Number of Rooms: {{roomsCount$ | async}}</h1>
+
 <div *ngIf="rooms$ | async as rooms">
   <hinv-rooms-list
     [rooms]="rooms"

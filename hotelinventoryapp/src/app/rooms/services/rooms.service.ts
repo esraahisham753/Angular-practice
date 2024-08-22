@@ -19,7 +19,7 @@ export class RoomsService {
   ) {
     //console.log(appConfig.apiEndpoint);
 
-    this.getRooms$ = this.http.get<RoomList[]>('https://special-xylophone-pjxqvqv45p5h97p6-3000.app.github.dev/api/room').pipe(
+    this.getRooms$ = this.http.get<RoomList[]>('https://special-xylophone-pjxqvqv45p5h97p6-3000.app.github.dev/api/rooms').pipe(
       shareReplay(1)
     );
   }
