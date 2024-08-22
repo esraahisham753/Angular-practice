@@ -15,6 +15,7 @@ import { RoomsListComponent } from './rooms-list/rooms-list.component';
 import { HeaderComponent } from '../header/header.component';
 import { RoomsService } from './services/rooms.service';
 import { Observable } from 'rxjs';
+import { HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'hinv-rooms',
@@ -45,6 +46,8 @@ export class RoomsComponent
     observer.next('user3');
     observer.complete();
   });
+
+  totalBytes : number = 0;
 
   constructor(@SkipSelf() private roomService: RoomsService) {}
 
@@ -128,8 +131,23 @@ export class RoomsComponent
   }
 
   getPhotos() {
-    this.roomService.getPhotos().subscribe((data) => {
-      console.log(data);
+    this.roomService.getPhotos().subscribe((event) => {
+      switch(event.type) {
+        case HttpEventType.Sent:
+          console.log('Request has been made');
+          break;
+        case HttpEventType.ResponseHeader:
+          console.log('Request has been a success');
+          break;
+        case HttpEventType.DownloadProgress:
+          this.totalBytes += event.loaded;
+          break;
+        
+        default:
+          console.log('Some thing went wront');
+
+
+      }
     })
   }
 }
