@@ -11,6 +11,8 @@ export class InitService {
   constructor(private http: HttpClient) {}
 
   init() {
+    console.log('init service called');
+
     return this.http
       .get('/assets/config.json')
       .pipe(tap((config) => (this.config = config)));

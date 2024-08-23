@@ -8,12 +8,13 @@ import {
   Inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { RoomsComponent } from './rooms/rooms.component';
 import { ContainerComponent } from './container/container.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { LoggerService } from './logger.service';
 import { LOCAL_SERVICE } from './localstorage.token';
+import { InitService } from './init.service';
 
 @Component({
   selector: 'hinv-root',
@@ -24,6 +25,7 @@ import { LOCAL_SERVICE } from './localstorage.token';
     CommonModule,
     ContainerComponent,
     EmployeeComponent,
+    RouterModule
   ],
   templateUrl: './app.component.html',
   //template: `
@@ -39,7 +41,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     @Optional() private loggerService: LoggerService,
-    @Inject(LOCAL_SERVICE) private myLocalStorage: any
+    @Inject(LOCAL_SERVICE) private myLocalStorage: any,
+    private initApp : InitService
   ) {}
 
   /*@ViewChild('user', {read : ViewContainerRef}) vcRef! : ViewContainerRef;
@@ -55,5 +58,7 @@ export class AppComponent implements OnInit {
     this.loggerService?.log('App ngOnInit');
     //this.name.nativeElement.innerText = "Hilton Hotel";
     this.myLocalStorage.setItem('name', 'Hilton Hotel');
+    console.log(this.initApp.config);
+
   }
 }

@@ -1,12 +1,25 @@
-import { enableProdMode } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { requestInterceptor } from './app/request.interceptor';
+import { APP_INITIALIZER } from '@angular/core';
+import { InitService } from './app/init.service';
+import { provideRouter } from '@angular/router';
+import { routes } from './app/app.routes';
+
+function initFactory(initService : InitService) {
+  return () => initService.init();
+}
 
 
 bootstrapApplication(AppComponent, {
     providers: [provideHttpClient(
       withInterceptors([requestInterceptor])
-    )],
+    ), {
+      provide: APP_INITIALIZER,
+      useFactory: initFactory,
+      deps: [InitService],
+      multi: true
+    },
+  provideRouter(routes)],
 }).catch(err => console.error(err));
