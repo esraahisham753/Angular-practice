@@ -1,11 +1,14 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { APP_INITIALIZER, ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { APP_CONFIG, APP_SERVICE_CONFIG } from './AppConfig/appconfig.service';
-import { requestInterceptor } from './request.interceptor';
-import { HTTP_INTERCEPTORS, HttpInterceptorFn } from '@angular/common/http';
+import { InitService } from './init.service';
+
+function initFactory(initService : InitService) {
+  return () => initService.init();
+}
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,6 +18,12 @@ export const appConfig: ApplicationConfig = {
     {
       provide: APP_SERVICE_CONFIG,
       useValue: APP_CONFIG
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initFactory,
+      deps: [InitService],
+      multi: true
     }
   ],
 };
