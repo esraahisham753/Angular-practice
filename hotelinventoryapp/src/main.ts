@@ -6,6 +6,7 @@ import { APP_INITIALIZER } from '@angular/core';
 import { InitService } from './app/init.service';
 import { provideRouter } from '@angular/router';
 import { routes } from './app/app.routes';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 function initFactory(initService : InitService) {
   return () => initService.init();
@@ -21,5 +22,5 @@ bootstrapApplication(AppComponent, {
       deps: [InitService],
       multi: true
     },
-  provideRouter(routes)],
+  provideRouter(routes), provideAnimationsAsync()],
 }).catch(err => console.error(err));
