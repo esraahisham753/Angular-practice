@@ -15,6 +15,7 @@ import { EmployeeComponent } from './employee/employee.component';
 import { LoggerService } from './logger.service';
 import { LOCAL_SERVICE } from './localstorage.token';
 import { InitService } from './init.service';
+import { AppNavComponent } from "./app-nav/app-nav.component";
 
 @Component({
   selector: 'hinv-root',
@@ -25,8 +26,9 @@ import { InitService } from './init.service';
     CommonModule,
     ContainerComponent,
     EmployeeComponent,
-    RouterModule
-  ],
+    RouterModule,
+    AppNavComponent
+],
   templateUrl: './app.component.html',
   //template: `
   //<h1>Hello, World from inline template</h1>
